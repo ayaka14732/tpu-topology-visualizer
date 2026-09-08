@@ -35,23 +35,12 @@ input:focus-visible {
 }
 @layer components {
   .field-label {
-    @apply mb-1 block text-[0.75rem] text-gray-500 uppercase;
+    @apply mb-1 block text-[0.75rem] text-gray-500;
   }
   .select {
     @apply w-full rounded border border-gray-700 bg-[#222] px-2 py-2 text-sm text-white outline-none focus:border-indigo-500;
   }
 }
-/* Keep the desktop reference proportions while allowing controls on small screens. */
-@media (max-width: 440px) {
-  .panel {
-    left: 12px;
-    top: 12px;
-    width: calc(100vw - 24px);
-    max-height: 72dvh;
-    padding: 16px;
-  }
-}
-
 /* Match the reference's v3 sibling-margin behavior after the v4 migration. */
 .system-stats > :not(:first-child) {
   margin-top: 2px;
@@ -60,4 +49,274 @@ input:focus-visible {
 .color-settings > :not(:first-child) {
   margin-top: 8px;
   margin-bottom: 0;
+}
+
+.mobile-panel-toggle {
+  display: none;
+}
+
+/* A bottom sheet reserves real canvas space rather than covering the topology. */
+@media (max-width: 767px), (max-height: 500px) and (pointer: coarse) {
+  .visualizer {
+    --controls-size: calc(52px + env(safe-area-inset-bottom, 0px));
+  }
+  .visualizer.controls-expanded {
+    --controls-size: 52dvh;
+  }
+  .scene-viewport {
+    bottom: var(--controls-size);
+  }
+  .panel {
+    inset: auto 0 0;
+    width: 100%;
+    height: var(--controls-size);
+    max-height: none;
+    padding: 0;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .mobile-panel-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 52px;
+    flex-shrink: 0;
+    padding: 6px max(16px, env(safe-area-inset-right, 0px)) 6px
+      max(16px, env(safe-area-inset-left, 0px));
+    color: #e5e7eb;
+    text-align: left;
+    touch-action: manipulation;
+  }
+  .mobile-panel-summary {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile-panel-summary strong {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .mobile-panel-summary > span {
+    font-size: 12px;
+    color: #9ca3af;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .panel-content {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0 16px 20px;
+    touch-action: auto;
+  }
+  .controls-collapsed .panel-content {
+    display: none;
+  }
+  .panel h1 {
+    font-size: 16px;
+    line-height: 1.4;
+    align-self: center;
+  }
+  .panel button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .panel input[type="checkbox"],
+  .panel input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .panel label:has(input) {
+    min-height: 44px;
+  }
+  .panel select {
+    pointer-events: auto;
+    touch-action: manipulation;
+    min-height: 44px;
+    font-size: 14px;
+  }
+  .panel input[type="text"],
+  .panel input:not([type]) {
+    font-size: 16px;
+    min-height: 44px;
+    width: 92px;
+    padding: 4px;
+  }
+  .color-settings > div:has(input[type="color"]) {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .color-settings div:has(> input[type="color"]) {
+    width: 44px;
+    height: 44px;
+  }
+  .rotation-button {
+    transition-property: color, background-color, border-color;
+    bottom: calc(var(--controls-size) + 12px);
+    left: max(12px, env(safe-area-inset-left, 0px));
+    min-width: 44px;
+    min-height: 44px;
+    display: grid;
+    place-items: center;
+  }
+  .partition-legend {
+    bottom: calc(var(--controls-size) + 12px);
+    right: max(12px, env(safe-area-inset-right, 0px));
+    min-width: 100px;
+    padding: 8px;
+  }
+}
+@media (max-width: 767px) and (orientation: landscape),
+  (max-height: 500px) and (pointer: coarse) and (orientation: landscape) {
+  .visualizer.controls-expanded {
+    --controls-size: 320px;
+  }
+  .controls-expanded .panel {
+    inset: 0 auto 0 0;
+    width: var(--controls-size);
+    height: 100%;
+    border-radius: 0 16px 16px 0;
+    padding-left: env(safe-area-inset-left, 0px);
+  }
+  .controls-expanded .scene-viewport {
+    left: var(--controls-size);
+    bottom: 0;
+  }
+  .controls-expanded .rotation-button {
+    left: calc(var(--controls-size) + 12px);
+    bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  }
+  .controls-expanded .partition-legend {
+    bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+.version-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(360px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #374151;
+  border-radius: 16px;
+  padding: 16px;
+  background: #1e1e23;
+  color: #f3f4f6;
+  box-shadow: 0 24px 64px #0008;
+}
+.version-dialog::backdrop {
+  background: #0009;
+}
+.version-dialog button {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  touch-action: manipulation;
+}
+.version-options {
+  display: grid;
+  gap: 4px;
+  margin-top: 8px;
+}
+.version-options button {
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+}
+.version-options button[aria-pressed="true"] {
+  background: #3730a3;
+}
+.version-options button:active {
+  background: #4f46e5;
+}
+
+/* Compact mobile typography. */
+@media (max-width: 767px), (max-height: 500px) and (pointer: coarse) {
+  .panel {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  .panel-content {
+    font-size: 12px;
+  }
+  .panel-content p,
+  .panel-content label,
+  .panel-content label > span,
+  .panel-content .text-sm,
+  .panel-content button:not(.select),
+  .color-settings > div > span {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .panel-content .field-label {
+    font-size: 11px;
+  }
+  .panel-content .select {
+    font-size: 14px;
+  }
+  .panel-content .font-mono:not(input) {
+    font-size: 12px;
+  }
+  .version-dialog {
+    font-size: 13px;
+  }
+  .version-dialog h2 {
+    font-size: 14px;
+  }
+}
+
+/* Tighten panel rhythm without changing the scene controls or picker dialog. */
+@media (max-width: 767px), (max-height: 500px) and (pointer: coarse) {
+  .panel-content > div:first-child {
+    margin-bottom: 4px;
+  }
+  .panel-content > div:first-child > button {
+    min-height: 32px;
+    min-width: 32px;
+  }
+  .panel-content > p {
+    margin-bottom: 10px;
+  }
+  .panel-content > .mb-4 {
+    margin-bottom: 10px;
+  }
+  .panel-content > .border-t {
+    padding-top: 8px;
+  }
+  .panel-content > .mt-6 {
+    margin-top: 12px;
+  }
+  .panel-content .field-label {
+    margin-bottom: 4px;
+  }
+  .panel-content .select {
+    min-height: 36px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .panel-content .select.mb-3 {
+    margin-bottom: 8px;
+  }
+  .panel-content label:has(input) {
+    min-height: 32px;
+  }
+  .layout-options > label {
+    margin: 0;
+  }
+  .panel-content .grid > label {
+    margin-bottom: 2px;
+  }
 }

@@ -145,6 +145,7 @@ test("mobile controls fit and remain scrollable", async ({ page }) => {
   await ready(page);
   const box = await page.getByRole("complementary").boundingBox();
   expect(box!.x + box!.width).toBeLessThanOrEqual(390);
+  await page.getByRole("button", { name: /Controls/ }).click();
   await page.getByTitle("Color Settings", { exact: true }).click();
   await page
     .getByRole("button", { name: "Reset to Scheme Default", exact: true })
@@ -173,4 +174,104 @@ test("missing WebGL displays a usable fallback", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Hardware Acceleration Missing" }),
   ).toBeVisible();
+});
+
+for (const size of [
+  { width: 320, height: 568 },
+  { width: 390, height: 844 },
+  { width: 430, height: 932 },
+]) {
+  test(`mobile sheet reserves scene space and preserves controls at ${size.width}px`, async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({
+      viewport: size,
+      isMobile: true,
+      hasTouch: true,
+    });
+    const page = await context.newPage();
+    await ready(page);
+    const toggle = page.getByRole("button", { name: /Controls/ });
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await expect(
+      page.getByLabel("TPU version", { exact: true }),
+    ).not.toBeVisible();
+    const collapsed = await page.getByTestId("topology-scene").boundingBox();
+    expect(collapsed!.height).toBeGreaterThan(size.height * 0.8);
+    await toggle.tap();
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    const scene = await page.getByTestId("topology-scene").boundingBox();
+    const panel = await page.getByRole("complementary").boundingBox();
+    expect(scene!.y + scene!.height).toBeLessThanOrEqual(panel!.y + 1);
+    expect(scene!.height).toBeGreaterThan(size.height * 0.4);
+    await page.getByLabel("TPU version", { exact: true }).tap();
+    await page
+      .getByRole("dialog")
+      .getByRole("button", { name: "TPU v6e", exact: true })
+      .tap();
+    await page.getByTitle("Color Settings", { exact: true }).tap();
+    await page
+      .getByLabel("Color Scheme", { exact: true })
+      .selectOption("pastel");
+    await page
+      .getByRole("button", { name: "Reset to Scheme Default", exact: true })
+      .scrollIntoViewIfNeeded();
+    await page
+      .getByRole("button", { name: "Reset to Scheme Default", exact: true })
+      .tap();
+    await toggle.tap();
+    await toggle.tap();
+    await expect(page.getByLabel("Color Scheme", { exact: true })).toHaveValue(
+      "pastel",
+    );
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBe(size.width);
+    await page.setViewportSize({ width: 844, height: 390 });
+    const landscape = await page.getByTestId("topology-scene").boundingBox();
+    const sidebar = await page.getByRole("complementary").boundingBox();
+    expect(landscape!.x).toBeGreaterThanOrEqual(sidebar!.width);
+    expect(landscape!.height).toBe(390);
+    await toggle.tap();
+    await page.getByTitle("Stop Auto-Rotate", { exact: true }).tap();
+    await expect(
+      page.getByTitle("Start Auto-Rotate", { exact: true }),
+    ).toBeVisible();
+    await context.close();
+  });
+}
+
+test("mobile version picker opens on touch and selects a family", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    isMobile: true,
+    hasTouch: true,
+  });
+  const page = await context.newPage();
+  await ready(page);
+  await page.getByRole("button", { name: /Controls/ }).tap();
+  const version = page.getByLabel("TPU version", { exact: true });
+  await version.tap();
+  const dialog = page.getByRole("dialog", {
+    name: "Choose TPU version",
+    exact: true,
+  });
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole("button", { name: "TPU v6e", exact: true }).tap();
+  await expect(dialog).not.toBeVisible();
+  await expect(version).toHaveText("TPU v6e");
+  await expect(page.getByLabel("Topology", { exact: true })).toHaveValue("5");
+  await expect(page.getByTestId("topology-scene")).toHaveAttribute(
+    "data-chips",
+    "64",
+  );
+  await version.tap();
+  await page.getByRole("button", { name: "Close TPU version" }).tap();
+  await expect(version).toBeFocused();
+  await version.tap();
+  await page.keyboard.press("Escape");
+  await expect(dialog).not.toBeVisible();
+  await context.close();
 });

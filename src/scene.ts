@@ -157,6 +157,14 @@ export class TopologyScene {
   private resize = () => {
     const { width, height } = this.container.getBoundingClientRect();
     this.camera.aspect = width / Math.max(1, height);
+    // Preserve the horizontal field of view on narrow screens without resetting orbit/zoom.
+    this.camera.fov = THREE.MathUtils.radToDeg(
+      2 *
+        Math.atan(
+          Math.tan(THREE.MathUtils.degToRad(45 / 2)) /
+            Math.min(1, this.camera.aspect),
+        ),
+    );
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(width, height);
   };

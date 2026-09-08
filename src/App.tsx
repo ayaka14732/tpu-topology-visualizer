@@ -6,6 +6,8 @@ import {
   RotateCw,
   TriangleAlert,
   Wrench,
+  SlidersHorizontal,
+  X,
 } from "lucide-react";
 import {
   closestTopology,
@@ -17,13 +19,14 @@ import {
   schemes,
 } from "./model";
 import type { Category, ColorKey, Layout, Selection } from "./model";
+import { VersionSelect } from "./VersionSelect";
 import { ColorSettings } from "./ColorSettings";
 import { TopologyScene } from "./scene";
 import { makePartition, rainbow } from "./partition";
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="mb-1.5 flex items-end justify-between">
-      <span className="text-[0.75rem] tracking-wide text-gray-400 uppercase">
+      <span className="text-[0.75rem] tracking-wide text-gray-400">
         {label}
       </span>
       <span className="text-right font-mono text-[0.9rem] text-gray-100">
@@ -33,6 +36,7 @@ function Stat({ label, value }: { label: string; value: string | number }) {
   );
 }
 export default function App() {
+  const [mobileExpanded, setMobileExpanded] = useState(false);
   const [initial] = useState(() => readInitialState());
   const [familyIndex, setFamily] = useState(initial.familyIndex),
     [topologyIndex, setTopology] = useState(initial.topologyIndex),
@@ -160,237 +164,247 @@ export default function App() {
       </main>
     );
   return (
-    <main className="relative h-dvh w-screen bg-[#111]">
+    <main
+      className={`visualizer relative h-dvh w-screen bg-[#111] ${mobileExpanded ? "controls-expanded" : "controls-collapsed"}`}
+    >
       <div
         ref={container}
-        className="absolute inset-0"
+        className="scene-viewport absolute inset-0"
         data-testid="topology-scene"
       />
-      <div id="ui-layer" className="pointer-events-none absolute inset-0">
+      <div id="ui-layer" className="contents">
         <aside
           aria-label="Topology controls"
           className="panel pointer-events-auto absolute top-5 left-5 z-10 max-h-[90vh] w-[380px] overflow-y-auto rounded-lg border border-white/10 bg-[#1e1e23]/95 p-5 shadow-2xl backdrop-blur-sm"
         >
-          <div className="mb-2 flex items-start justify-between">
-            <h1 className="text-xl font-semibold text-white">
-              {settings ? "Color Settings" : "TPU Topology Visualizer"}
-            </h1>
-            <button
-              title={settings ? "Back to Main" : "Color Settings"}
-              onClick={() => setSettings(!settings)}
-              className="rounded p-1.5 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
-            >
-              {settings ? <ArrowLeft size={18} /> : <Wrench size={18} />}
-            </button>
-          </div>
-          <p className="mb-4 text-sm leading-relaxed text-gray-400">
-            {settings
-              ? "Click on a color swatch to customize."
-              : "Visualize the TPU version and topology layout."}
-          </p>
-          {settings ? (
-            <ColorSettings
-              colors={colors}
-              schemeId={schemeId}
-              visibility={visibility}
-              outlines={outlines}
-              onScheme={changeScheme}
-              onColor={changeColor}
-              onToggle={toggle}
-              onOutlines={setOutlines}
-              onReset={() => changeScheme(schemeId)}
-            />
-          ) : (
-            <>
-              <div className="mb-4">
-                <label className="field-label" htmlFor="family">
-                  TPU version
-                </label>
-                <select
-                  id="family"
-                  className="select mb-3"
-                  value={familyIndex}
-                  onChange={(e) => {
-                    const index = Number(e.target.value);
-                    changeTopology(
-                      closestTopology(topology, families[index]),
-                      families[index],
-                    );
-                    setFamily(index);
-                  }}
-                >
-                  {families.map((f, i) => (
-                    <option key={f.id} value={i}>
-                      {f.name}
-                    </option>
-                  ))}
-                </select>
-                <label className="field-label" htmlFor="topology">
-                  Topology
-                </label>
-                <select
-                  id="topology"
-                  className="select"
-                  value={topologyIndex}
-                  onChange={(e) => changeTopology(Number(e.target.value))}
-                >
-                  {family.topologies.map((t, i) => (
-                    <option key={t.label} value={i}>
-                      {t.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-4 border-t border-gray-700 pt-4">
-                <div className="field-label mb-2">Layout</div>
-                <div className="space-y-1.5">
-                  {layouts(topology).map(([value, label]) => (
-                    <label
-                      key={value}
-                      className="group flex cursor-pointer items-center gap-2"
-                    >
-                      <input
-                        type="radio"
-                        name="layoutMode"
-                        value={value}
-                        checked={layout === value}
-                        onChange={() => setLayout(value)}
-                        className="h-3.5 w-3.5 accent-indigo-500"
-                      />
-                      <span className="text-sm text-gray-300 transition-colors group-hover:text-white">
-                        {label}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-              <div className="mb-4 border-t border-gray-700 pt-4">
-                <div className="field-label mb-3">Visualization options</div>
-                <div className="grid grid-cols-2 gap-x-2">
-                  {options.map((o) => (
-                    <label
-                      key={o.category}
-                      className="group mb-2 flex cursor-pointer items-center text-[0.85rem] text-gray-300 hover:text-white"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={visibility[o.category]}
-                        onChange={() => toggle(o.category)}
-                        className="mr-2.5 cursor-pointer accent-indigo-500"
-                      />
-                      <span
-                        className="mr-2.5 h-2.5 w-2.5 shrink-0 rounded-full"
-                        style={{ backgroundColor: colors[o.key] }}
-                      />
-                      <span>{o.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-              <div className="mt-6 border-t border-gray-700 pt-4">
-                <div className="field-label mb-3">Selection Details</div>
-                {!selection ? (
-                  <div className="py-2 text-center text-sm text-gray-600 italic">
-                    Select an element...
-                  </div>
-                ) : (
-                  <div
-                    className="rounded border border-gray-800 bg-[#111] p-3"
-                    data-testid="selection"
+          <button
+            className="mobile-panel-toggle"
+            aria-expanded={mobileExpanded}
+            aria-controls="panel-content"
+            onClick={() => setMobileExpanded((value) => !value)}
+          >
+            <SlidersHorizontal size={20} />
+            <span className="mobile-panel-summary">
+              <strong>Controls</strong>
+              <span>
+                {family.name} · {topology.label}
+              </span>
+            </span>
+            {mobileExpanded ? <X size={20} /> : <ChevronUp size={20} />}
+          </button>
+          <div id="panel-content" className="panel-content">
+            <div className="mb-2 flex items-start justify-between">
+              <h1 className="text-xl font-semibold text-white">
+                {settings ? "Color Settings" : "TPU Topology Visualizer"}
+              </h1>
+              <button
+                title={settings ? "Back to Main" : "Color Settings"}
+                onClick={() => setSettings(!settings)}
+                className="rounded p-1.5 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                {settings ? <ArrowLeft size={18} /> : <Wrench size={18} />}
+              </button>
+            </div>
+            <p className="mb-4 text-sm leading-relaxed text-gray-400">
+              {settings
+                ? "Click on a color swatch to customize."
+                : "Visualize the TPU version and topology layout."}
+            </p>
+            {settings ? (
+              <ColorSettings
+                colors={colors}
+                schemeId={schemeId}
+                visibility={visibility}
+                outlines={outlines}
+                onScheme={changeScheme}
+                onColor={changeColor}
+                onToggle={toggle}
+                onOutlines={setOutlines}
+                onReset={() => changeScheme(schemeId)}
+              />
+            ) : (
+              <>
+                <div className="mb-4">
+                  <label className="field-label" htmlFor="family">
+                    TPU version
+                  </label>
+                  <VersionSelect
+                    value={familyIndex}
+                    onChange={(index) => {
+                      changeTopology(
+                        closestTopology(topology, families[index]),
+                        families[index],
+                      );
+                      setFamily(index);
+                    }}
+                  />
+                  <label className="field-label" htmlFor="topology">
+                    Topology
+                  </label>
+                  <select
+                    id="topology"
+                    className="select"
+                    value={topologyIndex}
+                    onChange={(e) => changeTopology(Number(e.target.value))}
                   >
-                    <div className="mb-2 border-b border-gray-800 pb-2 font-bold text-white">
-                      {selection.label}
+                    {family.topologies.map((t, i) => (
+                      <option key={t.label} value={i}>
+                        {t.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="mb-4 border-t border-gray-700 pt-4">
+                  <div className="field-label mb-2">Layout</div>
+                  <div className="layout-options space-y-1.5">
+                    {layouts(topology).map(([value, label]) => (
+                      <label
+                        key={value}
+                        className="group flex cursor-pointer items-center gap-2"
+                      >
+                        <input
+                          type="radio"
+                          name="layoutMode"
+                          value={value}
+                          checked={layout === value}
+                          onChange={() => setLayout(value)}
+                          className="h-3.5 w-3.5 accent-indigo-500"
+                        />
+                        <span className="text-sm text-gray-300 transition-colors group-hover:text-white">
+                          {label}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div className="mb-4 border-t border-gray-700 pt-4">
+                  <div className="field-label mb-3">Visualization options</div>
+                  <div className="grid grid-cols-2 gap-x-2">
+                    {options.map((o) => (
+                      <label
+                        key={o.category}
+                        className="group mb-2 flex cursor-pointer items-center text-[0.85rem] text-gray-300 hover:text-white"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={visibility[o.category]}
+                          onChange={() => toggle(o.category)}
+                          className="mr-2.5 cursor-pointer accent-indigo-500"
+                        />
+                        <span
+                          className="mr-2.5 h-2.5 w-2.5 shrink-0 rounded-full"
+                          style={{ backgroundColor: colors[o.key] }}
+                        />
+                        <span>{o.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-6 border-t border-gray-700 pt-4">
+                  <div className="field-label mb-3">Selection Details</div>
+                  {!selection ? (
+                    <div className="py-2 text-center text-sm text-gray-600 italic">
+                      Select an element...
                     </div>
-                    {selection.type === "node" && (
-                      <>
-                        <Stat
-                          label="Coordinates"
-                          value={`[${selection.coords!.x}, ${selection.coords!.y}, ${selection.coords!.z}]`}
-                        />
-                        {selection.logicalCoords && (
-                          <Stat
-                            label="Logical"
-                            value={Object.entries(selection.logicalCoords)
-                              .map(([a, v]) => `${a}: ${v}`)
-                              .join(", ")}
-                          />
-                        )}
-                        <Stat label="Chip Type" value={family.name} />
-                      </>
-                    )}
-                    {selection.type === "host" && (
-                      <Stat
-                        label="Connected TPUs"
-                        value={countChips(family.hostSize)}
-                      />
-                    )}{" "}
-                    {selection.type === "link" && (
-                      <>
-                        <Stat
-                          label="Link Type"
-                          value={
-                            selection.isOCS
-                              ? "OCS (Optical)"
-                              : selection.isPCIe
-                                ? "PCIe"
-                                : "ICI Copper"
-                          }
-                        />
-                        <Stat
-                          label="Wrap Link"
-                          value={selection.isWrap ? "Yes" : "No"}
-                        />
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
-              <div className="mt-6 border-t border-gray-700 pt-4">
-                <button
-                  onClick={() => setSpecs(!specs)}
-                  aria-expanded={specs}
-                  className="group flex w-full cursor-pointer items-center justify-between"
-                >
-                  <span className="text-[0.75rem] text-gray-500 uppercase transition-colors group-hover:text-gray-300">
-                    System Specs
-                  </span>
-                  {specs ? (
-                    <ChevronUp
-                      size={14}
-                      className="text-gray-500 group-hover:text-gray-300"
-                    />
                   ) : (
-                    <ChevronDown
-                      size={14}
-                      className="text-gray-500 group-hover:text-gray-300"
-                    />
-                  )}
-                </button>
-                {specs && (
-                  <div className="system-stats pt-3">
-                    <Stat label="Total Chips" value={countChips(topology)} />
-                    <Stat
-                      label="Total Hosts"
-                      value={Math.ceil(
-                        countChips(topology) / countChips(family.hostSize),
+                    <div
+                      className="rounded border border-gray-800 bg-[#111] p-3"
+                      data-testid="selection"
+                    >
+                      <div className="mb-2 border-b border-gray-800 pb-2 font-bold text-white">
+                        {selection.label}
+                      </div>
+                      {selection.type === "node" && (
+                        <>
+                          <Stat
+                            label="Coordinates"
+                            value={`[${selection.coords!.x}, ${selection.coords!.y}, ${selection.coords!.z}]`}
+                          />
+                          {selection.logicalCoords && (
+                            <Stat
+                              label="Logical"
+                              value={Object.entries(selection.logicalCoords)
+                                .map(([a, v]) => `${a}: ${v}`)
+                                .join(", ")}
+                            />
+                          )}
+                          <Stat label="Chip Type" value={family.name} />
+                        </>
                       )}
-                    />
-                    <Stat
-                      label="Topology"
-                      value={`${topology.x} × ${topology.y} × ${topology.z}`}
-                    />
-                    <Stat label="Topology Type" value={topology.type} />
-                  </div>
-                )}
-              </div>
-            </>
-          )}
+                      {selection.type === "host" && (
+                        <Stat
+                          label="Connected TPUs"
+                          value={countChips(family.hostSize)}
+                        />
+                      )}{" "}
+                      {selection.type === "link" && (
+                        <>
+                          <Stat
+                            label="Link Type"
+                            value={
+                              selection.isOCS
+                                ? "OCS (Optical)"
+                                : selection.isPCIe
+                                  ? "PCIe"
+                                  : "ICI Copper"
+                            }
+                          />
+                          <Stat
+                            label="Wrap Link"
+                            value={selection.isWrap ? "Yes" : "No"}
+                          />
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+                <div className="mt-6 border-t border-gray-700 pt-4">
+                  <button
+                    onClick={() => setSpecs(!specs)}
+                    aria-expanded={specs}
+                    className="group flex w-full cursor-pointer items-center justify-between"
+                  >
+                    <span className="text-[0.75rem] text-gray-500 transition-colors group-hover:text-gray-300">
+                      System Specs
+                    </span>
+                    {specs ? (
+                      <ChevronUp
+                        size={14}
+                        className="text-gray-500 group-hover:text-gray-300"
+                      />
+                    ) : (
+                      <ChevronDown
+                        size={14}
+                        className="text-gray-500 group-hover:text-gray-300"
+                      />
+                    )}
+                  </button>
+                  {specs && (
+                    <div className="system-stats pt-3">
+                      <Stat label="Total Chips" value={countChips(topology)} />
+                      <Stat
+                        label="Total Hosts"
+                        value={Math.ceil(
+                          countChips(topology) / countChips(family.hostSize),
+                        )}
+                      />
+                      <Stat
+                        label="Topology"
+                        value={`${topology.x} × ${topology.y} × ${topology.z}`}
+                      />
+                      <Stat label="Topology Type" value={topology.type} />
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
         </aside>
       </div>
       <button
         title={rotating ? "Stop Auto-Rotate" : "Start Auto-Rotate"}
         onClick={() => setRotating(!rotating)}
-        className={`group pointer-events-auto fixed bottom-5 left-5 z-40 rounded-full border p-2 shadow-lg transition-all ${rotating ? "border-indigo-500 bg-indigo-600 text-white hover:bg-indigo-500" : "border-white/10 bg-[#1e1e23]/80 text-gray-400 hover:bg-[#2a2a30] hover:text-white"}`}
+        className={`rotation-button group pointer-events-auto fixed bottom-5 left-5 z-40 rounded-full border p-2 shadow-lg transition-all ${rotating ? "border-indigo-500 bg-indigo-600 text-white hover:bg-indigo-500" : "border-white/10 bg-[#1e1e23]/80 text-gray-400 hover:bg-[#2a2a30] hover:text-white"}`}
       >
         <RotateCw
           size={20}
@@ -402,8 +416,8 @@ export default function App() {
         </span>
       </button>
       {partition.active && (
-        <div className="pointer-events-auto absolute right-4 bottom-4 min-w-[140px] rounded-lg border border-gray-700 bg-black/80 p-3 backdrop-blur-sm">
-          <div className="mb-2 text-xs tracking-wide text-gray-400 uppercase">
+        <div className="partition-legend pointer-events-auto absolute right-4 bottom-4 min-w-[140px] rounded-lg border border-gray-700 bg-black/80 p-3 backdrop-blur-sm">
+          <div className="mb-2 text-xs tracking-wide text-gray-400">
             {partition.active} axis
           </div>
           <div className="flex items-stretch gap-2">
