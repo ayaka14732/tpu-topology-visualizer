@@ -87,3 +87,13 @@ Vite 要求 Node.js `^20.19.0 || >=22.12.0`。本机 Node 和 pnpm 安装在 `~/
 详见 [实现与验证记录](docs/verification.md)。这是可维护的 TypeScript / React 重写；没有嵌入原站页面、执行下载的原站 bundle，或调用原站私有接口。公开拓扑数值、配色和 favicon 来自原站的公开静态资源，来源记录见 [SOURCES.md](SOURCES.md)。
 
 桌面 UI 保留原站尺寸和 Tailwind 颜色。Three.js 的新版材质处理、曲线批次排序、抗锯齿及截图时旋转角度可能导致细微像素差异。移动端使用可折叠控制面板：竖屏为底部面板，横屏展开为侧栏。默认折叠，展开时为场景预留独立视口；表单触控区域、安全区和窄屏视角均做了适配。桌面保持原布局。
+
+## GitHub Pages 部署
+
+公开仓库：<https://github.com/ayaka14732/tpu-topology-visualizer>
+
+在线访问：<https://ayaka14732.github.io/tpu-topology-visualizer/>
+
+推送到 `main` 或在 Actions 中手动运行 `Deploy to GitHub Pages`，会安装锁定依赖、运行拓扑算法测试、构建并通过官方 Pages artifact 部署。部署源为 GitHub Actions，无需 `gh-pages` 分支或额外密钥。
+
+工作流使用 `.node-version` 和 `package.json` 中的 pnpm 版本；Actions 版本于 2026-09-08 按各项目最新稳定发布核验。Vite 根据 Pages 元数据的 `base_path` 设置资源前缀，本地开发默认保持 `/`。
