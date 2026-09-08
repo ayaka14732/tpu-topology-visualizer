@@ -424,6 +424,8 @@ input:focus-visible {
   justify-content: center;
   gap: 6px;
   width: 160px;
+  flex-shrink: 0;
+  white-space: nowrap;
   min-height: 32px;
   padding: 6px 8px;
   border: 1px solid #374151;
@@ -439,9 +441,29 @@ input:focus-visible {
   background: #303038;
 }
 .menu-row button[aria-pressed="true"] {
-  border-color: #6366f1;
-  color: #c7d2fe;
+  border-color: #374151;
+  color: #d1d5db;
 }
 .controls-menu .language-picker select {
   width: 160px;
+}
+
+.source-link {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-left: 8px;
+  border-radius: 4px;
+  color: #9ca3af;
+}
+.source-link:hover {
+  color: white;
+  background: #ffffff1a;
+}
+.source-link:focus-visible {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
 }

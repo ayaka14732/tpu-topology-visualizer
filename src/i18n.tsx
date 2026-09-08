@@ -7,10 +7,17 @@ import {
 } from "react";
 export type Language = "en" | "fr" | "zh";
 const translations: Record<string, [string, string]> = {
+  "View source on GitHub": [
+    "Voir le code source sur GitHub",
+    "在 GitHub 上查看源代码",
+  ],
   "TPU Topology Visualizer": ["Visualiseur de topologie TPU", "TPU 拓扑可视化"],
   Language: ["Langue", "语言"],
   Controls: ["Commandes", "控制"],
   "Topology controls": ["Commandes de topologie", "拓扑控制"],
+  Configure: ["Configurer", "设置"],
+  Start: ["Démarrer", "开始"],
+  Stop: ["Arrêter", "停止"],
   "Color Settings": ["Réglages des couleurs", "配色设置"],
   "Back to Main": ["Retour", "返回主面板"],
   "Click on a color swatch to customize.": [

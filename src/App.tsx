@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
+  CodeXml,
   ChevronDown,
   ChevronUp,
   RotateCw,
@@ -209,6 +210,16 @@ export default function App() {
               <h1 className="text-xl font-semibold text-white">
                 {settings ? t("Color Settings") : t("TPU Topology Visualizer")}
               </h1>
+              <a
+                className="source-link"
+                href="https://github.com/ayaka14732/tpu-topology-visualizer"
+                target="_blank"
+                rel="noopener noreferrer"
+                title={t("View source on GitHub")}
+                aria-label={t("View source on GitHub")}
+              >
+                <CodeXml size={20} />
+              </a>
             </div>
             <p className="mb-4 text-sm leading-relaxed text-gray-400">
               {settings
@@ -225,9 +236,7 @@ export default function App() {
                   onClick={() => setSettings(!settings)}
                 >
                   {settings ? <ArrowLeft size={16} /> : <Wrench size={16} />}
-                  <span>
-                    {settings ? t("Back to Main") : t("Color Settings")}
-                  </span>
+                  <span>{settings ? t("Back to Main") : t("Configure")}</span>
                 </button>
               </div>
               <div className="menu-row">
@@ -241,9 +250,7 @@ export default function App() {
                   }
                 >
                   <RotateCw size={16} />
-                  <span>
-                    {rotating ? t("Stop Rotation") : t("Start Auto-Rotate")}
-                  </span>
+                  <span>{rotating ? t("Stop") : t("Start")}</span>
                 </button>
               </div>
             </nav>
