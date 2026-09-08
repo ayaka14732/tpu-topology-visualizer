@@ -1,0 +1,1149 @@
+[
+  {
+    "id": "pufferfish",
+    "name": "TPU V4",
+    "hostSize": {
+      "x": 2,
+      "y": 2,
+      "z": 1
+    },
+    "topologies": [
+      {
+        "label": "1x1x1",
+        "x": 1,
+        "y": 1,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "1x2x1",
+        "x": 1,
+        "y": 2,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2x1",
+        "x": 2,
+        "y": 2,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2x2",
+        "x": 2,
+        "y": 2,
+        "z": 2,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2x4",
+        "x": 2,
+        "y": 2,
+        "z": 4,
+        "type": "mesh"
+      },
+      {
+        "label": "2x4x4",
+        "x": 2,
+        "y": 4,
+        "z": 4,
+        "type": "mesh"
+      },
+      {
+        "label": "4x4x4",
+        "x": 4,
+        "y": 4,
+        "z": 4,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x8",
+        "x": 4,
+        "y": 4,
+        "z": 8,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x8_twisted",
+        "x": 4,
+        "y": 4,
+        "z": 8,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "4x4x12",
+        "x": 4,
+        "y": 4,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x16",
+        "x": 4,
+        "y": 4,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x8",
+        "x": 4,
+        "y": 8,
+        "z": 8,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x8_twisted",
+        "x": 4,
+        "y": 8,
+        "z": 8,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "4x8x12",
+        "x": 4,
+        "y": 8,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x16",
+        "x": 4,
+        "y": 8,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x12x12",
+        "x": 4,
+        "y": 12,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "4x12x16",
+        "x": 4,
+        "y": 12,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x16x16",
+        "x": 4,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x8",
+        "x": 8,
+        "y": 8,
+        "z": 8,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x12",
+        "x": 8,
+        "y": 8,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x16",
+        "x": 8,
+        "y": 8,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x16_twisted",
+        "x": 8,
+        "y": 8,
+        "z": 16,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "8x12x12",
+        "x": 8,
+        "y": 12,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "8x12x16",
+        "x": 8,
+        "y": 12,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "8x16x16",
+        "x": 8,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "8x16x16_twisted",
+        "x": 8,
+        "y": 16,
+        "z": 16,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "12x12x12",
+        "x": 12,
+        "y": 12,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x16",
+        "x": 12,
+        "y": 12,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "12x16x16",
+        "x": 12,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      }
+    ]
+  },
+  {
+    "id": "viperlite_pod",
+    "name": "TPU v5e",
+    "hostSize": {
+      "x": 2,
+      "y": 4,
+      "z": 1
+    },
+    "topologies": [
+      {
+        "label": "1x1",
+        "x": 1,
+        "y": 1,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2",
+        "x": 2,
+        "y": 2,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "2x4",
+        "x": 2,
+        "y": 4,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "4x4",
+        "x": 4,
+        "y": 4,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "4x8",
+        "x": 4,
+        "y": 8,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "8x8",
+        "x": 8,
+        "y": 8,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "8x16",
+        "x": 8,
+        "y": 16,
+        "z": 1,
+        "type": "cylinder"
+      },
+      {
+        "label": "16x16",
+        "x": 16,
+        "y": 16,
+        "z": 1,
+        "type": "torus"
+      }
+    ]
+  },
+  {
+    "id": "viperfish",
+    "name": "TPU v5p",
+    "hostSize": {
+      "x": 2,
+      "y": 2,
+      "z": 1
+    },
+    "topologies": [
+      {
+        "label": "1x1x1",
+        "x": 1,
+        "y": 1,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "1x2x1",
+        "x": 1,
+        "y": 2,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2x1",
+        "x": 2,
+        "y": 2,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2x2",
+        "x": 2,
+        "y": 2,
+        "z": 2,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2x4",
+        "x": 2,
+        "y": 2,
+        "z": 4,
+        "type": "mesh"
+      },
+      {
+        "label": "2x4x4",
+        "x": 2,
+        "y": 4,
+        "z": 4,
+        "type": "mesh"
+      },
+      {
+        "label": "4x4x4",
+        "x": 4,
+        "y": 4,
+        "z": 4,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x8",
+        "x": 4,
+        "y": 4,
+        "z": 8,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x8_twisted",
+        "x": 4,
+        "y": 4,
+        "z": 8,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "4x4x12",
+        "x": 4,
+        "y": 4,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x16",
+        "x": 4,
+        "y": 4,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x20",
+        "x": 4,
+        "y": 4,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x24",
+        "x": 4,
+        "y": 4,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x8",
+        "x": 4,
+        "y": 8,
+        "z": 8,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x8_twisted",
+        "x": 4,
+        "y": 8,
+        "z": 8,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "4x8x12",
+        "x": 4,
+        "y": 8,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x16",
+        "x": 4,
+        "y": 8,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x20",
+        "x": 4,
+        "y": 8,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x24",
+        "x": 4,
+        "y": 8,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "4x12x12",
+        "x": 4,
+        "y": 12,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "4x12x16",
+        "x": 4,
+        "y": 12,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x12x20",
+        "x": 4,
+        "y": 12,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "4x12x24",
+        "x": 4,
+        "y": 12,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "4x16x16",
+        "x": 4,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x16x20",
+        "x": 4,
+        "y": 16,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "4x16x24",
+        "x": 4,
+        "y": 16,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x8",
+        "x": 8,
+        "y": 8,
+        "z": 8,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x12",
+        "x": 8,
+        "y": 8,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x16",
+        "x": 8,
+        "y": 8,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x16_twisted",
+        "x": 8,
+        "y": 8,
+        "z": 16,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "8x8x20",
+        "x": 8,
+        "y": 8,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x24",
+        "x": 8,
+        "y": 8,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "8x12x12",
+        "x": 8,
+        "y": 12,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "8x12x16",
+        "x": 8,
+        "y": 12,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "8x12x20",
+        "x": 8,
+        "y": 12,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "8x12x24",
+        "x": 8,
+        "y": 12,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "8x16x16",
+        "x": 8,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "8x16x16_twisted",
+        "x": 8,
+        "y": 16,
+        "z": 16,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "8x16x20",
+        "x": 8,
+        "y": 16,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "8x16x24",
+        "x": 8,
+        "y": 16,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x12",
+        "x": 12,
+        "y": 12,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x16",
+        "x": 12,
+        "y": 12,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x20",
+        "x": 12,
+        "y": 12,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x24",
+        "x": 12,
+        "y": 12,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x24_twisted",
+        "x": 12,
+        "y": 12,
+        "z": 24,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "12x16x16",
+        "x": 12,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "12x16x20",
+        "x": 12,
+        "y": 16,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "12x16x24",
+        "x": 12,
+        "y": 16,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "16x16x16",
+        "x": 16,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "16x16x20",
+        "x": 16,
+        "y": 16,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "16x16x24",
+        "x": 16,
+        "y": 16,
+        "z": 24,
+        "type": "torus"
+      }
+    ]
+  },
+  {
+    "id": "ghostlite_pod",
+    "name": "TPU v6e",
+    "hostSize": {
+      "x": 2,
+      "y": 4,
+      "z": 1
+    },
+    "topologies": [
+      {
+        "label": "1x1",
+        "x": 1,
+        "y": 1,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2",
+        "x": 2,
+        "y": 2,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "2x4",
+        "x": 2,
+        "y": 4,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "4x4",
+        "x": 4,
+        "y": 4,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "4x8",
+        "x": 4,
+        "y": 8,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "8x8",
+        "x": 8,
+        "y": 8,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "8x16",
+        "x": 8,
+        "y": 16,
+        "z": 1,
+        "type": "cylinder"
+      },
+      {
+        "label": "16x16",
+        "x": 16,
+        "y": 16,
+        "z": 1,
+        "type": "torus"
+      }
+    ]
+  },
+  {
+    "id": "ghostfish",
+    "name": "TPU7x Ironwood",
+    "hostSize": {
+      "x": 2,
+      "y": 2,
+      "z": 1
+    },
+    "topologies": [
+      {
+        "label": "1x1x1",
+        "x": 1,
+        "y": 1,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "1x2x1",
+        "x": 1,
+        "y": 2,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2x1",
+        "x": 2,
+        "y": 2,
+        "z": 1,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2x2",
+        "x": 2,
+        "y": 2,
+        "z": 2,
+        "type": "mesh"
+      },
+      {
+        "label": "2x2x4",
+        "x": 2,
+        "y": 2,
+        "z": 4,
+        "type": "mesh"
+      },
+      {
+        "label": "2x4x4",
+        "x": 2,
+        "y": 4,
+        "z": 4,
+        "type": "mesh"
+      },
+      {
+        "label": "4x4x4",
+        "x": 4,
+        "y": 4,
+        "z": 4,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x8",
+        "x": 4,
+        "y": 4,
+        "z": 8,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x8_twisted",
+        "x": 4,
+        "y": 4,
+        "z": 8,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "4x4x12",
+        "x": 4,
+        "y": 4,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x16",
+        "x": 4,
+        "y": 4,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x20",
+        "x": 4,
+        "y": 4,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x24",
+        "x": 4,
+        "y": 4,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "4x4x32",
+        "x": 4,
+        "y": 4,
+        "z": 32,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x8",
+        "x": 4,
+        "y": 8,
+        "z": 8,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x8_twisted",
+        "x": 4,
+        "y": 8,
+        "z": 8,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "4x8x12",
+        "x": 4,
+        "y": 8,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x16",
+        "x": 4,
+        "y": 8,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x20",
+        "x": 4,
+        "y": 8,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x24",
+        "x": 4,
+        "y": 8,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "4x8x32",
+        "x": 4,
+        "y": 8,
+        "z": 32,
+        "type": "torus"
+      },
+      {
+        "label": "4x12x12",
+        "x": 4,
+        "y": 12,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "4x12x16",
+        "x": 4,
+        "y": 12,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x12x20",
+        "x": 4,
+        "y": 12,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "4x12x24",
+        "x": 4,
+        "y": 12,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "4x16x16",
+        "x": 4,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "4x16x20",
+        "x": 4,
+        "y": 16,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "4x16x24",
+        "x": 4,
+        "y": 16,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "4x16x32",
+        "x": 4,
+        "y": 16,
+        "z": 32,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x8",
+        "x": 8,
+        "y": 8,
+        "z": 8,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x12",
+        "x": 8,
+        "y": 8,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x16",
+        "x": 8,
+        "y": 8,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x16_twisted",
+        "x": 8,
+        "y": 8,
+        "z": 16,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "8x8x20",
+        "x": 8,
+        "y": 8,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x24",
+        "x": 8,
+        "y": 8,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "8x8x32",
+        "x": 8,
+        "y": 8,
+        "z": 32,
+        "type": "torus"
+      },
+      {
+        "label": "8x12x12",
+        "x": 8,
+        "y": 12,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "8x12x16",
+        "x": 8,
+        "y": 12,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "8x12x20",
+        "x": 8,
+        "y": 12,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "8x12x24",
+        "x": 8,
+        "y": 12,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "8x16x16",
+        "x": 8,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "8x16x16_twisted",
+        "x": 8,
+        "y": 16,
+        "z": 16,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "8x16x20",
+        "x": 8,
+        "y": 16,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "8x16x24",
+        "x": 8,
+        "y": 16,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "8x16x32",
+        "x": 8,
+        "y": 16,
+        "z": 32,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x12",
+        "x": 12,
+        "y": 12,
+        "z": 12,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x16",
+        "x": 12,
+        "y": 12,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x20",
+        "x": 12,
+        "y": 12,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x24",
+        "x": 12,
+        "y": 12,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "12x12x24_twisted",
+        "x": 12,
+        "y": 12,
+        "z": 24,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "12x16x16",
+        "x": 12,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "12x16x20",
+        "x": 12,
+        "y": 16,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "12x16x24",
+        "x": 12,
+        "y": 16,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "12x24x24",
+        "x": 12,
+        "y": 24,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "12x24x24_twisted",
+        "x": 12,
+        "y": 24,
+        "z": 24,
+        "type": "twisted_torus"
+      },
+      {
+        "label": "16x16x16",
+        "x": 16,
+        "y": 16,
+        "z": 16,
+        "type": "torus"
+      },
+      {
+        "label": "16x16x20",
+        "x": 16,
+        "y": 16,
+        "z": 20,
+        "type": "torus"
+      },
+      {
+        "label": "16x16x24",
+        "x": 16,
+        "y": 16,
+        "z": 24,
+        "type": "torus"
+      },
+      {
+        "label": "16x16x32",
+        "x": 16,
+        "y": 16,
+        "z": 32,
+        "type": "torus"
+      },
+      {
+        "label": "16x16x32_twisted",
+        "x": 16,
+        "y": 16,
+        "z": 32,
+        "type": "twisted_torus"
+      }
+    ]
+  }
+]

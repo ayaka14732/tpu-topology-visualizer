@@ -1,0 +1,21 @@
+{
+  "node": "#808080",
+  "nodeBase": "#404040",
+  "nodeHighlight": "#FFFFFF",
+  "nodeHighlightEmissive": "#CCCCCC",
+  "host": "#C0C0C0",
+  "hostHighlight": "#FFFFFF",
+  "hostHighlightEmissive": "#A0A0A0",
+  "linkX": "#909090",
+  "linkY": "#707070",
+  "linkZ": "#B0B0B0",
+  "linkWrap": "#606060",
+  "linkOcsInter": "#888888",
+  "linkOcsX": "#787878",
+  "linkOcsY": "#989898",
+  "linkOcsZ": "#686868",
+  "linkPCIe": "#A8A8A8",
+  "linkHighlight": "#FFFFFF",
+  "linkWrapHighlight": "#FFFFFF",
+  "background": "#1A1A1A"
+}

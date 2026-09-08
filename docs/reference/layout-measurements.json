@@ -1,0 +1,68 @@
+{
+  "original": {
+    "box": "{\"x\":20,\"y\":20,\"width\":380,\"height\":900,\"top\":20,\"right\":400,\"bottom\":920,\"left\":20}",
+    "labels": [
+      {
+        "tag": "H1",
+        "rect": "{\"x\":41,\"y\":41,\"width\":235,\"height\":28,\"top\":41,\"right\":276,\"bottom\":69,\"left\":41}"
+      },
+      {
+        "tag": "SELECT",
+        "rect": "{\"x\":41,\"y\":139.75,\"width\":338,\"height\":37,\"top\":139.75,\"right\":379,\"bottom\":176.75,\"left\":41}"
+      },
+      {
+        "tag": "SELECT",
+        "rect": "{\"x\":41,\"y\":210.75,\"width\":338,\"height\":37,\"top\":210.75,\"right\":379,\"bottom\":247.75,\"left\":41}"
+      },
+      {
+        "tag": "INPUT",
+        "rect": "{\"x\":41,\"y\":309.75,\"width\":14,\"height\":14,\"top\":309.75,\"right\":55,\"bottom\":323.75,\"left\":41}"
+      },
+      {
+        "tag": "INPUT",
+        "rect": "{\"x\":41,\"y\":335.75,\"width\":14,\"height\":14,\"top\":335.75,\"right\":55,\"bottom\":349.75,\"left\":41}"
+      },
+      {
+        "tag": "INPUT",
+        "rect": "{\"x\":41,\"y\":361.75,\"width\":14,\"height\":14,\"top\":361.75,\"right\":55,\"bottom\":375.75,\"left\":41}"
+      },
+      {
+        "tag": "INPUT",
+        "rect": "{\"x\":41,\"y\":387.75,\"width\":14,\"height\":14,\"top\":387.75,\"right\":55,\"bottom\":401.75,\"left\":41}"
+      }
+    ]
+  },
+  "local": {
+    "box": "{\"x\":20,\"y\":20,\"width\":380,\"height\":900,\"top\":20,\"right\":400,\"bottom\":920,\"left\":20}",
+    "labels": [
+      {
+        "tag": "H1",
+        "rect": "{\"x\":41,\"y\":41,\"width\":235,\"height\":28,\"top\":41,\"right\":276,\"bottom\":69,\"left\":41}"
+      },
+      {
+        "tag": "SELECT",
+        "rect": "{\"x\":41,\"y\":139.75,\"width\":338,\"height\":37,\"top\":139.75,\"right\":379,\"bottom\":176.75,\"left\":41}"
+      },
+      {
+        "tag": "SELECT",
+        "rect": "{\"x\":41,\"y\":210.75,\"width\":338,\"height\":37,\"top\":210.75,\"right\":379,\"bottom\":247.75,\"left\":41}"
+      },
+      {
+        "tag": "INPUT",
+        "rect": "{\"x\":41,\"y\":309.75,\"width\":14,\"height\":14,\"top\":309.75,\"right\":55,\"bottom\":323.75,\"left\":41}"
+      },
+      {
+        "tag": "INPUT",
+        "rect": "{\"x\":41,\"y\":335.75,\"width\":14,\"height\":14,\"top\":335.75,\"right\":55,\"bottom\":349.75,\"left\":41}"
+      },
+      {
+        "tag": "INPUT",
+        "rect": "{\"x\":41,\"y\":361.75,\"width\":14,\"height\":14,\"top\":361.75,\"right\":55,\"bottom\":375.75,\"left\":41}"
+      },
+      {
+        "tag": "INPUT",
+        "rect": "{\"x\":41,\"y\":387.75,\"width\":14,\"height\":14,\"top\":387.75,\"right\":55,\"bottom\":401.75,\"left\":41}"
+      }
+    ]
+  }
+}
