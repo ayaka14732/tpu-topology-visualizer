@@ -320,3 +320,62 @@ input:focus-visible {
     margin-bottom: 2px;
   }
 }
+
+/* Desktop controls are a full-height sidebar with their own scroll area. */
+@media (min-width: 768px) and (min-height: 501px),
+  (min-width: 768px) and (pointer: fine) {
+  .visualizer {
+    --sidebar-width: 380px;
+  }
+  .panel {
+    inset: 0 auto 0 0;
+    width: var(--sidebar-width);
+    height: 100%;
+    max-height: none;
+    border: 0;
+    border-right: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 0;
+    background: #1e1e23;
+    box-shadow: none;
+    backdrop-filter: none;
+    overscroll-behavior: contain;
+  }
+  .scene-viewport {
+    left: var(--sidebar-width);
+  }
+  .rotation-button {
+    left: calc(var(--sidebar-width) + 20px);
+  }
+}
+
+/* Native controls and scrollbars follow the dark control-panel surface. */
+.panel,
+.panel-content,
+.version-dialog {
+  color-scheme: dark;
+  scrollbar-width: thin;
+  scrollbar-color: #55565e #1e1e23;
+}
+.panel::-webkit-scrollbar,
+.panel-content::-webkit-scrollbar,
+.version-dialog::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.panel::-webkit-scrollbar-track,
+.panel-content::-webkit-scrollbar-track,
+.version-dialog::-webkit-scrollbar-track {
+  background: #1e1e23;
+}
+.panel::-webkit-scrollbar-thumb,
+.panel-content::-webkit-scrollbar-thumb,
+.version-dialog::-webkit-scrollbar-thumb {
+  background: #55565e;
+  border: 2px solid #1e1e23;
+  border-radius: 8px;
+}
+.panel::-webkit-scrollbar-thumb:hover,
+.panel-content::-webkit-scrollbar-thumb:hover,
+.version-dialog::-webkit-scrollbar-thumb:hover {
+  background: #777983;
+}
