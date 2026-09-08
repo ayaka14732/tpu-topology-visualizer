@@ -99,3 +99,7 @@ pnpm exec playwright install --with-deps chromium
 这是一次可维护的 TypeScript / React 重写：**没有**嵌入原站页面、执行下载的原站 bundle，或调用原站私有接口。公开拓扑数值和配色来自原站的公开静态资源，来源记录见 [SOURCES.md](SOURCES.md)。
 
 Three.js 的新版材质处理、曲线批次排序、抗锯齿以及截图时的旋转角度可能导致细微像素差异。完整的实现与验证记录见 [docs/verification.md](docs/verification.md)。
+
+## License
+
+本项目原创代码和文档采用 [MIT License](LICENSE)。来自原站的拓扑数据、配色和原站截图不属于本项目授予的 MIT 许可范围；字体和其他依赖保留各自许可证。第三方素材说明见 [SOURCES.md](SOURCES.md)。
