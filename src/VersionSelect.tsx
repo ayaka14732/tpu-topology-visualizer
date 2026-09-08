@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronDown, X } from "lucide-react";
+import { useLanguage } from "./i18n";
 import { families } from "./model";
 const query = "(max-width: 767px), (max-height: 500px) and (pointer: coarse)";
 export function VersionSelect({
@@ -9,6 +10,7 @@ export function VersionSelect({
   value: number;
   onChange: (value: number) => void;
 }) {
+  const { t } = useLanguage();
   const [mobile, setMobile] = useState(() => matchMedia(query).matches);
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -62,11 +64,11 @@ export function VersionSelect({
       >
         <div className="flex items-center justify-between">
           <h2 id="version-dialog-title" className="font-semibold">
-            Choose TPU version
+            {t("Choose TPU version")}
           </h2>
           <button
             type="button"
-            aria-label="Close TPU version"
+            aria-label={t("Close TPU version")}
             onClick={() => dialog.current?.close()}
           >
             <X size={20} />

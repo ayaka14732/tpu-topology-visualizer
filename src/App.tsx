@@ -19,23 +19,26 @@ import {
   schemes,
 } from "./model";
 import type { Category, ColorKey, Layout, Selection } from "./model";
+import { useLanguage, LanguagePicker } from "./i18n";
 import { VersionSelect } from "./VersionSelect";
 import { ColorSettings } from "./ColorSettings";
 import { TopologyScene } from "./scene";
 import { makePartition, rainbow } from "./partition";
 function Stat({ label, value }: { label: string; value: string | number }) {
+  const { t } = useLanguage();
   return (
     <div className="mb-1.5 flex items-end justify-between">
       <span className="text-[0.75rem] tracking-wide text-gray-400">
-        {label}
+        {t(label)}
       </span>
       <span className="text-right font-mono text-[0.9rem] text-gray-100">
-        {value}
+        {typeof value === "string" ? t(value) : value}
       </span>
     </div>
   );
 }
 export default function App() {
+  const { t, language } = useLanguage();
   const [mobileExpanded, setMobileExpanded] = useState(false);
   const [initial] = useState(() => readInitialState());
   const [familyIndex, setFamily] = useState(initial.familyIndex),
@@ -108,6 +111,11 @@ export default function App() {
   useEffect(() => scene.current?.updateVisibility(visibility), [visibility]);
   useEffect(() => scene.current?.setOutlines(outlines), [outlines]);
   useEffect(() => scene.current?.setAutoRotate(rotating), [rotating, gpu]);
+  useEffect(() => {
+    container.current
+      ?.querySelector("canvas")
+      ?.setAttribute("aria-label", t("Scene instructions"));
+  }, [language, gpu]);
   const save = (id: string, value: typeof colors) => {
     try {
       localStorage.setItem(
@@ -141,24 +149,28 @@ export default function App() {
     return (
       <main className="fixed inset-0 z-50 flex items-center justify-center bg-[#111] p-6 text-white">
         <div className="max-w-md space-y-6 text-center">
+          <LanguagePicker />
           <div className="mb-4 flex justify-center">
             <TriangleAlert size={64} className="text-red-500" />
           </div>
-          <h1 className="text-2xl font-bold">Hardware Acceleration Missing</h1>
+          <h1 className="text-2xl font-bold">
+            {t("Hardware Acceleration Missing")}
+          </h1>
           <p className="text-gray-300">
-            This app requires a GPU or hardware accelerator to function
-            correctly. It looks like your device doesn't have one enabled or
-            available.
+            {t(
+              "This app requires a GPU or hardware accelerator to function correctly. It looks like your device doesn't have one enabled or available.",
+            )}
           </p>
           <p className="text-sm text-gray-500">
-            Without GPU support, nothing may load or performance might be
-            largely degraded.
+            {t(
+              "Without GPU support, nothing may load or performance might be largely degraded.",
+            )}
           </p>
           <button
             className="mt-8 rounded-lg border border-white/10 bg-[#1e1e23] px-6 py-2 text-sm font-medium transition-colors hover:bg-[#2a2a30]"
             onClick={() => setGpu("retry")}
           >
-            [Try Anyway]
+            {t("[Try Anyway]")}
           </button>
         </div>
       </main>
@@ -174,7 +186,7 @@ export default function App() {
       />
       <div id="ui-layer" className="contents">
         <aside
-          aria-label="Topology controls"
+          aria-label={t("Topology controls")}
           className="panel pointer-events-auto absolute top-5 left-5 z-10 max-h-[90vh] w-[380px] overflow-y-auto rounded-lg border border-white/10 bg-[#1e1e23]/95 p-5 shadow-2xl backdrop-blur-sm"
         >
           <button
@@ -185,7 +197,7 @@ export default function App() {
           >
             <SlidersHorizontal size={20} />
             <span className="mobile-panel-summary">
-              <strong>Controls</strong>
+              <strong>{t("Controls")}</strong>
               <span>
                 {family.name} · {topology.label}
               </span>
@@ -195,10 +207,10 @@ export default function App() {
           <div id="panel-content" className="panel-content">
             <div className="mb-2 flex items-start justify-between">
               <h1 className="text-xl font-semibold text-white">
-                {settings ? "Color Settings" : "TPU Topology Visualizer"}
+                {settings ? t("Color Settings") : t("TPU Topology Visualizer")}
               </h1>
               <button
-                title={settings ? "Back to Main" : "Color Settings"}
+                title={settings ? t("Back to Main") : t("Color Settings")}
                 onClick={() => setSettings(!settings)}
                 className="rounded p-1.5 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
               >
@@ -207,9 +219,10 @@ export default function App() {
             </div>
             <p className="mb-4 text-sm leading-relaxed text-gray-400">
               {settings
-                ? "Click on a color swatch to customize."
-                : "Visualize the TPU version and topology layout."}
+                ? t("Click on a color swatch to customize.")
+                : t("Visualize the TPU version and topology layout.")}
             </p>
+            <LanguagePicker />
             {settings ? (
               <ColorSettings
                 colors={colors}
@@ -226,7 +239,7 @@ export default function App() {
               <>
                 <div className="mb-4">
                   <label className="field-label" htmlFor="family">
-                    TPU version
+                    {t("TPU version")}
                   </label>
                   <VersionSelect
                     value={familyIndex}
@@ -239,7 +252,7 @@ export default function App() {
                     }}
                   />
                   <label className="field-label" htmlFor="topology">
-                    Topology
+                    {t("Topology")}
                   </label>
                   <select
                     id="topology"
@@ -255,7 +268,7 @@ export default function App() {
                   </select>
                 </div>
                 <div className="mb-4 border-t border-gray-700 pt-4">
-                  <div className="field-label mb-2">Layout</div>
+                  <div className="field-label mb-2">{t("Layout")}</div>
                   <div className="layout-options space-y-1.5">
                     {layouts(topology).map(([value, label]) => (
                       <label
@@ -271,14 +284,16 @@ export default function App() {
                           className="h-3.5 w-3.5 accent-indigo-500"
                         />
                         <span className="text-sm text-gray-300 transition-colors group-hover:text-white">
-                          {label}
+                          {t(label)}
                         </span>
                       </label>
                     ))}
                   </div>
                 </div>
                 <div className="mb-4 border-t border-gray-700 pt-4">
-                  <div className="field-label mb-3">Visualization options</div>
+                  <div className="field-label mb-3">
+                    {t("Visualization options")}
+                  </div>
                   <div className="grid grid-cols-2 gap-x-2">
                     {options.map((o) => (
                       <label
@@ -295,16 +310,18 @@ export default function App() {
                           className="mr-2.5 h-2.5 w-2.5 shrink-0 rounded-full"
                           style={{ backgroundColor: colors[o.key] }}
                         />
-                        <span>{o.label}</span>
+                        <span>{t(o.label)}</span>
                       </label>
                     ))}
                   </div>
                 </div>
                 <div className="mt-6 border-t border-gray-700 pt-4">
-                  <div className="field-label mb-3">Selection Details</div>
+                  <div className="field-label mb-3">
+                    {t("Selection Details")}
+                  </div>
                   {!selection ? (
                     <div className="py-2 text-center text-sm text-gray-600 italic">
-                      Select an element...
+                      {t("Select an element...")}
                     </div>
                   ) : (
                     <div
@@ -312,7 +329,7 @@ export default function App() {
                       data-testid="selection"
                     >
                       <div className="mb-2 border-b border-gray-800 pb-2 font-bold text-white">
-                        {selection.label}
+                        {t(selection.label)}
                       </div>
                       {selection.type === "node" && (
                         <>
@@ -365,7 +382,7 @@ export default function App() {
                     className="group flex w-full cursor-pointer items-center justify-between"
                   >
                     <span className="text-[0.75rem] text-gray-500 transition-colors group-hover:text-gray-300">
-                      System Specs
+                      {t("System Specs")}
                     </span>
                     {specs ? (
                       <ChevronUp
@@ -402,7 +419,7 @@ export default function App() {
         </aside>
       </div>
       <button
-        title={rotating ? "Stop Auto-Rotate" : "Start Auto-Rotate"}
+        title={rotating ? t("Stop Auto-Rotate") : t("Start Auto-Rotate")}
         onClick={() => setRotating(!rotating)}
         className={`rotation-button group pointer-events-auto fixed bottom-5 left-5 z-40 rounded-full border p-2 shadow-lg transition-all ${rotating ? "border-indigo-500 bg-indigo-600 text-white hover:bg-indigo-500" : "border-white/10 bg-[#1e1e23]/80 text-gray-400 hover:bg-[#2a2a30] hover:text-white"}`}
       >
@@ -412,13 +429,13 @@ export default function App() {
           style={rotating ? { animationDuration: "3s" } : undefined}
         />
         <span className="pointer-events-none absolute bottom-full left-0 mb-2 rounded bg-black px-2 py-1 text-[10px] whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100">
-          {rotating ? "Stop Rotation" : "Auto-Rotate"}
+          {rotating ? t("Stop Rotation") : t("Auto-Rotate")}
         </span>
       </button>
       {partition.active && (
         <div className="partition-legend pointer-events-auto absolute right-4 bottom-4 min-w-[140px] rounded-lg border border-gray-700 bg-black/80 p-3 backdrop-blur-sm">
           <div className="mb-2 text-xs tracking-wide text-gray-400">
-            {partition.active} axis
+            {t(`${partition.active} axis`)}
           </div>
           <div className="flex items-stretch gap-2">
             <div
@@ -440,7 +457,7 @@ export default function App() {
             </div>
           </div>
           <div className="mt-2 text-[10px] text-gray-500">
-            {partition.axes[partition.active]} values
+            {t(`${partition.axes[partition.active]} values`)}
           </div>
         </div>
       )}

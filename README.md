@@ -97,3 +97,7 @@ Vite 要求 Node.js `^20.19.0 || >=22.12.0`。本机 Node 和 pnpm 安装在 `~/
 推送到 `main` 或在 Actions 中手动运行 `Deploy to GitHub Pages`，会安装锁定依赖、运行拓扑算法测试、构建并通过官方 Pages artifact 部署。部署源为 GitHub Actions，无需 `gh-pages` 分支或额外密钥。
 
 工作流使用 `.node-version` 和 `package.json` 中的 pnpm 版本；Actions 版本于 2026-09-08 按各项目最新稳定发布核验。Vite 根据 Pages 元数据的 `base_path` 设置资源前缀，本地开发默认保持 `/`。
+
+## 界面语言
+
+控制面板中的语言选择器支持 English、Français、中文，默认英文。选择会保存在本机浏览器，刷新后继续使用；主面板、配色设置、型号弹窗、选择详情和提示会同步翻译。切换语言保留当前拓扑、视角、显隐和配色，页面标题及 HTML 语言标记也会更新。

@@ -379,3 +379,38 @@ input:focus-visible {
 .version-dialog::-webkit-scrollbar-thumb:hover {
   background: #777983;
 }
+
+.language-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 12px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+.language-picker select {
+  max-width: 160px;
+  min-width: 116px;
+  min-height: 32px;
+  padding: 4px 8px;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  background: #222;
+  color: #f3f4f6;
+  color-scheme: dark;
+  font: inherit;
+}
+.panel h1 {
+  min-width: 0;
+}
+.panel h1 + button {
+  flex-shrink: 0;
+}
+.color-settings > div:has(input[type="color"]) {
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.color-settings label {
+  min-width: 100px;
+}
