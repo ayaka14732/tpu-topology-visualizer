@@ -209,20 +209,44 @@ export default function App() {
               <h1 className="text-xl font-semibold text-white">
                 {settings ? t("Color Settings") : t("TPU Topology Visualizer")}
               </h1>
-              <button
-                title={settings ? t("Back to Main") : t("Color Settings")}
-                onClick={() => setSettings(!settings)}
-                className="rounded p-1.5 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
-              >
-                {settings ? <ArrowLeft size={18} /> : <Wrench size={18} />}
-              </button>
             </div>
             <p className="mb-4 text-sm leading-relaxed text-gray-400">
               {settings
                 ? t("Click on a color swatch to customize.")
                 : t("Visualize the TPU version and topology layout.")}
             </p>
-            <LanguagePicker />
+            <nav className="controls-menu" aria-label={t("Controls")}>
+              <LanguagePicker />
+              <div className="menu-row">
+                <span>{t("Color Settings")}</span>
+                <button
+                  type="button"
+                  aria-pressed={settings}
+                  onClick={() => setSettings(!settings)}
+                >
+                  {settings ? <ArrowLeft size={16} /> : <Wrench size={16} />}
+                  <span>
+                    {settings ? t("Back to Main") : t("Color Settings")}
+                  </span>
+                </button>
+              </div>
+              <div className="menu-row">
+                <span>{t("Auto-Rotate")}</span>
+                <button
+                  type="button"
+                  aria-pressed={rotating}
+                  onClick={() => setRotating(!rotating)}
+                  title={
+                    rotating ? t("Stop Auto-Rotate") : t("Start Auto-Rotate")
+                  }
+                >
+                  <RotateCw size={16} />
+                  <span>
+                    {rotating ? t("Stop Rotation") : t("Start Auto-Rotate")}
+                  </span>
+                </button>
+              </div>
+            </nav>
             {settings ? (
               <ColorSettings
                 colors={colors}
@@ -418,20 +442,7 @@ export default function App() {
           </div>
         </aside>
       </div>
-      <button
-        title={rotating ? t("Stop Auto-Rotate") : t("Start Auto-Rotate")}
-        onClick={() => setRotating(!rotating)}
-        className={`rotation-button group pointer-events-auto fixed bottom-5 left-5 z-40 rounded-full border p-2 shadow-lg transition-all ${rotating ? "border-indigo-500 bg-indigo-600 text-white hover:bg-indigo-500" : "border-white/10 bg-[#1e1e23]/80 text-gray-400 hover:bg-[#2a2a30] hover:text-white"}`}
-      >
-        <RotateCw
-          size={20}
-          className={rotating ? "animate-spin" : ""}
-          style={rotating ? { animationDuration: "3s" } : undefined}
-        />
-        <span className="pointer-events-none absolute bottom-full left-0 mb-2 rounded bg-black px-2 py-1 text-[10px] whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100">
-          {rotating ? t("Stop Rotation") : t("Auto-Rotate")}
-        </span>
-      </button>
+
       {partition.active && (
         <div className="partition-legend pointer-events-auto absolute right-4 bottom-4 min-w-[140px] rounded-lg border border-gray-700 bg-black/80 p-3 backdrop-blur-sm">
           <div className="mb-2 text-xs tracking-wide text-gray-400">

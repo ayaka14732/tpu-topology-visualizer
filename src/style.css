@@ -157,15 +157,6 @@ input:focus-visible {
     width: 44px;
     height: 44px;
   }
-  .rotation-button {
-    transition-property: color, background-color, border-color;
-    bottom: calc(var(--controls-size) + 12px);
-    left: max(12px, env(safe-area-inset-left, 0px));
-    min-width: 44px;
-    min-height: 44px;
-    display: grid;
-    place-items: center;
-  }
   .partition-legend {
     bottom: calc(var(--controls-size) + 12px);
     right: max(12px, env(safe-area-inset-right, 0px));
@@ -188,10 +179,6 @@ input:focus-visible {
   .controls-expanded .scene-viewport {
     left: var(--controls-size);
     bottom: 0;
-  }
-  .controls-expanded .rotation-button {
-    left: calc(var(--controls-size) + 12px);
-    bottom: max(12px, env(safe-area-inset-bottom, 0px));
   }
   .controls-expanded .partition-legend {
     bottom: max(12px, env(safe-area-inset-bottom, 0px));
@@ -343,9 +330,6 @@ input:focus-visible {
   .scene-viewport {
     left: var(--sidebar-width);
   }
-  .rotation-button {
-    left: calc(var(--sidebar-width) + 20px);
-  }
 }
 
 /* Native controls and scrollbars follow the dark control-panel surface. */
@@ -413,4 +397,51 @@ input:focus-visible {
 }
 .color-settings label {
   min-width: 100px;
+}
+
+.controls-menu {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.controls-menu .language-picker {
+  margin: 0;
+}
+.menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  color: #9ca3af;
+}
+.menu-row > span {
+  min-width: 0;
+}
+.menu-row button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 160px;
+  min-height: 32px;
+  padding: 6px 8px;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  background: #222;
+  color: #d1d5db;
+  font: inherit;
+}
+.menu-row button svg {
+  flex-shrink: 0;
+}
+.menu-row button:hover {
+  background: #303038;
+}
+.menu-row button[aria-pressed="true"] {
+  border-color: #6366f1;
+  color: #c7d2fe;
+}
+.controls-menu .language-picker select {
+  width: 160px;
 }
