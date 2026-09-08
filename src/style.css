@@ -1,11 +1,15 @@
-@import "@fontsource/inter/latin-400.css";
-@import "@fontsource/inter/latin-500.css";
-@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/roboto/latin-400.css";
+@import "@fontsource/roboto/latin-500.css";
+@import "@fontsource/roboto/latin-600.css";
 @import "tailwindcss";
 
+/* CJK families resolve locally; only Roboto Latin is bundled as a webfont. */
 /* Tailwind 3's reference palette is preserved on the Tailwind 4 toolchain. */
 @theme {
-  --font-sans: "Inter", sans-serif;
+  --font-sans:
+    "Roboto", "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC",
+    "Source Han Sans CN", "思源黑体", system-ui, -apple-system,
+    BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
   --color-gray-100: #f3f4f6;
   --color-gray-300: #d1d5db;
   --color-gray-400: #9ca3af;
@@ -21,7 +25,7 @@
 body {
   margin: 0;
   background: #111;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   overflow: hidden;
 }
 button,
