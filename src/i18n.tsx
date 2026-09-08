@@ -8,6 +8,31 @@ import {
 } from "react";
 export type Language = "en" | "fr" | "zh";
 const translations: Record<string, [string, string]> = {
+  "Logical partition": ["Partition logique", "逻辑分区"],
+  "Partition mode": ["Mode de partition", "分区模式"],
+  "Logical axes": ["Axes logiques", "逻辑轴"],
+  "Use name:size pairs, separated by commas. Their product must equal the chip count.":
+    [
+      "Utilisez des paires nom:taille séparées par des virgules. Leur produit doit égaler le nombre de puces.",
+      "使用逗号分隔的 名称:大小，大小的乘积须等于芯片总数。",
+    ],
+  "Invalid partition: check axis names, sizes and whether the rings fit this topology.":
+    [
+      "Partition invalide : vérifiez les noms, les tailles et la compatibilité des anneaux.",
+      "分区无效：请检查轴名称、大小，以及环是否适用于当前拓扑。",
+    ],
+  "Color by axis": ["Colorer par axe", "按轴着色"],
+  None: ["Aucun", "无"],
+  Apply: ["Appliquer", "应用"],
+  "Reset partition": ["Réinitialiser la partition", "重置分区"],
+  "Share configuration": ["Partager la configuration", "分享配置"],
+  "Copy Link": ["Copier le lien", "复制链接"],
+  "Link Copied": ["Lien copié", "链接已复制"],
+  "Copy failed. Please allow clipboard access and try again.": [
+    "Échec de la copie. Autorisez l’accès au presse-papiers et réessayez.",
+    "复制失败，请允许访问剪贴板后重试。",
+  ],
+
   "View source on GitHub": [
     "Voir le code source sur GitHub",
     "在 GitHub 上查看源代码",

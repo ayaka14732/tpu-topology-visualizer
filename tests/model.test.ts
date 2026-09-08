@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  readInitialState,
+  stateParams,
   closestTopology,
   countChips,
   families,
@@ -139,4 +141,37 @@ describe("URL partition compatibility", () => {
       ).mode,
     ).toBe("split-axes");
   });
+});
+
+describe("configuration sharing", () => {
+  it("round-trips topology, partition and visual overrides independently of local colors", () => {
+    const state = readInitialState(
+      "?platform=viperlite_pod&topo=8x8&layout=xy&theme=pastel&hide=host,pcie&outlines=0&partition_mode=grid-of-rings&stack_axes=model:4,data:16&active_axis=model",
+    );
+    state.colors.node = "#123456";
+    const topology =
+      families[state.familyIndex].topologies[state.topologyIndex];
+    const partition = makePartition(topology, state.params);
+    const restored = readInitialState(stateParams(state, partition).toString());
+    expect(restored).toMatchObject({
+      familyIndex: state.familyIndex,
+      topologyIndex: state.topologyIndex,
+      layout: state.layout,
+      colors: state.colors,
+      visibility: state.visibility,
+      outlines: false,
+    });
+    expect(makePartition(topology, restored.params)).toEqual(partition);
+  });
+  it.each(["a:8,a:8", "__proto__:64", "a:64:extra", "a:63"])(
+    "reports invalid editor input %s",
+    (axes) => {
+      expect(
+        makePartition(
+          { x: 4, y: 4, z: 4 },
+          new URLSearchParams({ mesh_axes: axes }),
+        ).error,
+      ).toBeDefined();
+    },
+  );
 });

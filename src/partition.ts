@@ -1,5 +1,6 @@
 import { countChips, type Coordinates } from "./model";
 export interface Partition {
+  error?: string;
   axes: Record<string, number>;
   mode: string;
   active: string | null;
@@ -47,9 +48,17 @@ function fit(size: number, remaining: Shape): Shape {
 function parseAxes(raw: string | null): Record<string, number> {
   const axes: Record<string, number> = {};
   for (const item of raw?.split(",") || []) {
-    const [key, value] = item.split(":");
+    const [key, value, extra] = item.split(":");
     const size = Number(value);
-    if (!key || !Number.isSafeInteger(size) || size <= 0 || size > 8192)
+    if (
+      !key ||
+      extra !== undefined ||
+      Object.hasOwn(axes, key) ||
+      ["__proto__", "constructor", "prototype"].includes(key) ||
+      !Number.isSafeInteger(size) ||
+      size <= 0 ||
+      size > 8192
+    )
       throw Error("Invalid axis");
     axes[key] = size;
   }
@@ -59,6 +68,7 @@ export function makePartition(
   t: Coordinates,
   params: URLSearchParams,
 ): Partition {
+  let error: string | undefined;
   let axes = { data: t.x, model: t.y, seq: t.z } as Record<string, number>;
   let mode = params.get("partition_mode") || "split-axes";
   const values = new Map<string, Record<string, number>>();
@@ -121,6 +131,7 @@ export function makePartition(
       });
     }
   } catch {
+    error = "Invalid partition";
     mode = "split-axes";
     axes = { data: t.x, model: t.y, seq: t.z };
     values.clear();
@@ -139,6 +150,7 @@ export function makePartition(
         }
   const active = params.get("active_axis");
   return {
+    error,
     axes,
     mode,
     values,

@@ -20,7 +20,11 @@
 **显示与配色**
 - 11 项显隐开关、轮廓线开关。
 - Original / Pastel / Google / Greyscale 四套配色，支持自定义色值、色值校验、单项及整套重置。
-- 所有设置通过 localStorage 持久化。
+- 配色通过 localStorage 持久化；点击复制链接时，将当前拓扑、布局、分区、配色、显隐和轮廓设置写入分享 URL，不修改当前页面地址。
+
+**分区与分享**
+- 逻辑分区编辑器支持五种模式、逻辑轴大小、按轴着色与重置；无效输入会提示并阻止应用。
+- 分享配置一栏可直接复制当前配置链接；按钮文字保持不变，成功后弹出短暂的“链接已复制”轻提示，剪贴板不可用时提示允许访问后重试。
 
 ## URL 参数
 
@@ -39,12 +43,15 @@
 | `layout` | `grid`、`xy`、`yx`、`yz`、`zy`、`zx`、`xz`、`x`、`y`、`z`，按所选拓扑约束可用选项。 |
 | `hide` | `node`、`node-base`、`host`、`pcie`、`ici-x`、`ici-y`、`ici-z`、`ici-ocs`、`wrap-copper`、`wrap-ocs-x`、`wrap-ocs-y`、`wrap-ocs-z`。 |
 | `partition_mode` | `split-axes`、`grid-of-rings`、`ring-of-rings`、`ring-of-rings-of-rings`、`grid-of-grids-of-rings`。 |
+| `mesh_axes` / `stack_axes` | split-axes / stacked 模式的逻辑轴，格式为 `data:8,model:8`；大小乘积须等于芯片数。 |
+| `theme` / `color_<key>` | 配色方案及自定义 `#RRGGBB` 色值。 |
+| `outlines` | `0` 隐藏轮廓，`1` 显示。 |
 | `active_axis` | 启用对应的芯片着色、数字标签和图例。 |
 | `mapping` | 兼容接收；split-axes 的坐标按 Z 最快的线性设备序号及逻辑轴大小计算，与原站当前算法一致。 |
 
 与原站行为一致：3D 拓扑初始化时会将 stacked 配置恢复为默认 split-axes；无效分区参数会安全回退至默认配置。
 
-> 原站公开面板没有分区编辑器、路径上传或分享按钮，本复刻只保留其实际可见的 UI。
+本复刻在原站公开 UI 基础上增加了分区编辑器和分享按钮，使已有 URL 功能可直接操作。路径上传尚未实现。
 
 ## 本地开发
 

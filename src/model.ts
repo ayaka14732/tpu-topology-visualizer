@@ -230,6 +230,10 @@ export function readInitialState(search = window.location.search) {
     schemeId = theme.id;
     colors = { ...theme.colors };
   }
+  for (const key of Object.keys(colors) as ColorKey[]) {
+    const value = params.get(`color_${key}`);
+    if (value && /^#[\da-f]{6}$/i.test(value)) colors[key] = value;
+  }
   const visibility = { ...defaultVisibility };
   for (const key of params.get("hide")?.split(",") || [])
     if (Object.hasOwn(visibility, key)) visibility[key as Category] = false;
@@ -240,6 +244,46 @@ export function readInitialState(search = window.location.search) {
     schemeId,
     colors,
     visibility,
+    outlines: params.get("outlines") !== "0",
     params,
   };
+}
+
+export function stateParams(
+  state: {
+    familyIndex: number;
+    topologyIndex: number;
+    layout: Layout;
+    schemeId: string;
+    colors: Colors;
+    visibility: Visibility;
+    outlines: boolean;
+  },
+  partition: {
+    mode: string;
+    axes: Record<string, number>;
+    active: string | null;
+  },
+) {
+  const params = new URLSearchParams({
+    platform: families[state.familyIndex].id,
+    topo: families[state.familyIndex].topologies[state.topologyIndex].label,
+    layout: state.layout,
+    theme: state.schemeId,
+    hide: (Object.keys(state.visibility) as Category[])
+      .filter((key) => !state.visibility[key])
+      .join(","),
+    outlines: state.outlines ? "1" : "0",
+    partition_mode: partition.mode,
+    [partition.mode === "split-axes" ? "mesh_axes" : "stack_axes"]:
+      Object.entries(partition.axes)
+        .map(([name, size]) => `${name}:${size}`)
+        .join(","),
+  });
+  if (partition.active) params.set("active_axis", partition.active);
+  const base = schemes.find((s) => s.id === state.schemeId)!.colors;
+  for (const key of Object.keys(state.colors) as ColorKey[])
+    if (state.colors[key] !== base[key])
+      params.set(`color_${key}`, state.colors[key]);
+  return params;
 }

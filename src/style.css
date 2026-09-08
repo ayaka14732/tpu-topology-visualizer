@@ -146,8 +146,11 @@ input:focus-visible {
   .panel input:not([type]) {
     font-size: 16px;
     min-height: 44px;
-    width: 92px;
+    width: 100%;
     padding: 4px;
+  }
+  .color-settings input[type="text"] {
+    width: 92px;
   }
   .color-settings > div:has(input[type="color"]) {
     flex-wrap: wrap;

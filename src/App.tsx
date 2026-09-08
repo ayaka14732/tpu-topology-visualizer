@@ -3,6 +3,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
   CodeXml,
+  Check,
+  Copy,
   ChevronDown,
   ChevronUp,
   RotateCw,
@@ -19,10 +21,12 @@ import {
   options,
   readInitialState,
   schemes,
+  stateParams,
 } from "./model";
 import type { Category, ColorKey, Layout, Selection } from "./model";
 import { useLanguage, LanguagePicker } from "./i18n";
 import { VersionSelect } from "./VersionSelect";
+import { PartitionSettings } from "./PartitionSettings";
 import { ColorSettings } from "./ColorSettings";
 import { TopologyScene } from "./scene";
 import { makePartition, rainbow } from "./partition";
@@ -49,7 +53,7 @@ export default function App() {
   const [colors, setColors] = useState(initial.colors),
     [schemeId, setScheme] = useState(initial.schemeId),
     [visibility, setVisibility] = useState(initial.visibility);
-  const [outlines, setOutlines] = useState(true),
+  const [outlines, setOutlines] = useState(initial.outlines),
     [settings, setSettings] = useState(false),
     [specs, setSpecs] = useState(true),
     [rotating, setRotating] = useState(true),
@@ -72,9 +76,33 @@ export default function App() {
     () => makePartition(topology, partitionParams),
     [topology, partitionParams],
   );
+  const getShareUrl = () => {
+    const url = new URL(window.location.href);
+    url.search = stateParams(
+      {
+        familyIndex,
+        topologyIndex,
+        layout,
+        schemeId,
+        colors,
+        visibility,
+        outlines,
+      },
+      partition,
+    ).toString();
+    return url.href;
+  };
+  const [shareStatus, setShareStatus] = useState<{ copied: boolean } | null>(
+    null,
+  );
   useEffect(() => {
-    window.history.replaceState({}, "", window.location.pathname);
-  }, []);
+    if (!shareStatus) return;
+    const timer = window.setTimeout(
+      () => setShareStatus(null),
+      shareStatus.copied ? 2500 : 6000,
+    );
+    return () => window.clearTimeout(timer);
+  }, [shareStatus]);
   useEffect(() => {
     if (!container.current || gpu === "missing") return;
     let instance: TopologyScene;
@@ -255,6 +283,23 @@ export default function App() {
                   <span>{rotating ? t("Stop") : t("Start")}</span>
                 </button>
               </div>
+              <div className="menu-row">
+                <span>{t("Share configuration")}</span>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(getShareUrl());
+                      setShareStatus({ copied: true });
+                    } catch {
+                      setShareStatus({ copied: false });
+                    }
+                  }}
+                >
+                  <Copy size={16} aria-hidden="true" />
+                  <span>{t("Copy Link")}</span>
+                </button>
+              </div>
             </nav>
             {settings ? (
               <ColorSettings
@@ -300,6 +345,12 @@ export default function App() {
                     ))}
                   </select>
                 </div>
+                <PartitionSettings
+                  key={`${family.id}/${topology.label}/${partitionParams.toString()}`}
+                  topology={topology}
+                  partition={partition}
+                  onChange={setPartitionParams}
+                />
                 <div className="mb-4 border-t border-gray-700 pt-4">
                   <div className="field-label mb-2">{t("Layout")}</div>
                   <div className="layout-options space-y-1.5">
@@ -451,6 +502,39 @@ export default function App() {
             <About />
           </div>
         </aside>
+      </div>
+
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="pointer-events-none fixed left-1/2 z-50 w-max max-w-[calc(100vw-2rem)] -translate-x-1/2"
+        style={{ top: "max(20px, env(safe-area-inset-top))" }}
+      >
+        {shareStatus && (
+          <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-[#1e1e23] px-4 py-3 text-sm text-gray-100 shadow-2xl">
+            {shareStatus.copied ? (
+              <Check
+                size={18}
+                className="shrink-0 text-emerald-400"
+                aria-hidden="true"
+              />
+            ) : (
+              <TriangleAlert
+                size={18}
+                className="shrink-0 text-red-500"
+                aria-hidden="true"
+              />
+            )}
+            <span>
+              {t(
+                shareStatus.copied
+                  ? "Link Copied"
+                  : "Copy failed. Please allow clipboard access and try again.",
+              )}
+            </span>
+          </div>
+        )}
       </div>
 
       {partition.active && (
