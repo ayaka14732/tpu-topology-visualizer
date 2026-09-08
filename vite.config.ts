@@ -38,7 +38,6 @@ export default defineConfig({
         <meta name="description" content="${escape(copy.description)}">
         <meta name="robots" content="index,follow,max-image-preview:large">
         <link rel="canonical" href="${siteUrl}">
-        <link rel="sitemap" type="application/xml" href="${siteUrl}sitemap.xml">
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="TPU Topology Visualizer">
         <meta property="og:title" content="${escape(copy.title)}">
@@ -62,13 +61,6 @@ export default defineConfig({
             "<!--seo-content-->",
             `<main class="static-introduction"><h1>TPU Topology Visualizer</h1><h2>${copy.heading}</h2><p>${copy.body}</p><p>${copy.help}</p><a href="${repositoryUrl}">${copy.source}</a></main>`,
           );
-      },
-      generateBundle() {
-        this.emitFile({
-          type: "asset",
-          fileName: "sitemap.xml",
-          source: `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${siteUrl}</loc></url></urlset>`,
-        });
       },
     },
   ],

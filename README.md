@@ -106,4 +106,4 @@ Vite 要求 Node.js `^20.19.0 || >=22.12.0`。本机 Node 和 pnpm 安装在 `~/
 
 构建时将英文标题、描述、规范网址、Open Graph / Twitter 分享信息、WebApplication JSON-LD 直接写入 HTML。首次加载使用内联样式保持深色空白背景，直到应用就绪；工具介绍放在 `noscript` 中，仅在未启用 JavaScript 时显示，避免加载时闪现介绍页。交互页面的「关于此工具」提供相同内容，并支持三语切换。语言切换同步更新标题、描述和语言标记。
 
-`src/seo.ts` 维护三语文案与正式站点网址；迁移域名时需更新该网址。`public/social-preview.png` 是 1200×630 的实际界面截图。构建自动生成 `sitemap.xml`，部署后可将其完整网址提交至 Google Search Console。语言使用同一网址和本地偏好设置，因此不声明独立语言页面的 hreflang。
+`src/seo.ts` 维护三语文案与正式站点网址；迁移域名时需更新该网址。`public/social-preview.png` 是 1200×630 的实际界面截图。本项目不生成独立 sitemap；页面网址可由主站仓库 `ayaka14732/ayaka14732.github.io` 的 `sitemap.txt` 统一维护。语言使用同一网址和本地偏好设置，因此不声明独立语言页面的 hreflang。
