@@ -16,10 +16,9 @@ pnpm dev
 pnpm build        # TypeScript 严格检查 + 生产构建
 pnpm preview      # 在 4173 端口预览 dist/
 pnpm test         # 物理拓扑与逻辑分区测试
-pnpm test:e2e     # Chromium 浏览器测试
 ```
 
-首次运行浏览器测试：`pnpm exec playwright install --with-deps chromium`。
+首次使用手动截图工具：`pnpm exec playwright install --with-deps chromium`。
 
 ## 工具链
 
@@ -78,7 +77,7 @@ Vite 要求 Node.js `^20.19.0 || >=22.12.0`。本机 Node 和 pnpm 安装在 `~/
 | `src/partition.ts`      | 逻辑分区与设备坐标映射                            |
 | `src/scene.ts`          | Three.js 实例化渲染、拾取、轮廓、GPU 资源生命周期 |
 | `src/data/`             | 原站公开的型号拓扑和配色数据                      |
-| `tests/`                | Vitest 和 Playwright 测试                         |
+| `tests/`                | 拓扑与分区算法的 Vitest 测试                      |
 | `docs/reference/`       | 原站与本地页面截图、布局尺寸测量                  |
 
 场景使用 InstancedMesh、合并曲线几何和合并轮廓，避免每芯片独立 draw call。切换拓扑、React Strict Mode 重建和卸载时释放几何、材质、纹理、监听器和动画循环。
