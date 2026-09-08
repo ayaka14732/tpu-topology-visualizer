@@ -1,3 +1,4 @@
+import { seo } from "./seo";
 import {
   createContext,
   useContext,
@@ -137,7 +138,40 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   });
   useEffect(() => {
     document.documentElement.lang = language === "zh" ? "zh-CN" : language;
-    document.title = translate(language, "TPU Topology Visualizer");
+    document.title = seo[language].title;
+    for (const selector of [
+      'meta[name="description"]',
+      'meta[property="og:description"]',
+      'meta[name="twitter:description"]',
+    ])
+      document
+        .querySelector(selector)
+        ?.setAttribute("content", seo[language].description);
+    for (const selector of [
+      'meta[property="og:title"]',
+      'meta[name="twitter:title"]',
+    ])
+      document
+        .querySelector(selector)
+        ?.setAttribute("content", seo[language].title);
+    document
+      .querySelector('meta[property="og:locale"]')
+      ?.setAttribute(
+        "content",
+        { en: "en_US", fr: "fr_FR", zh: "zh_CN" }[language],
+      );
+    const otherLocales = Object.entries({
+      en: "en_US",
+      fr: "fr_FR",
+      zh: "zh_CN",
+    })
+      .filter(([key]) => key !== language)
+      .map(([, locale]) => locale);
+    document
+      .querySelectorAll('meta[property="og:locale:alternate"]')
+      .forEach((meta, index) => {
+        meta.setAttribute("content", otherLocales[index]);
+      });
     try {
       localStorage.setItem("tpu-viz-language", language);
     } catch {}

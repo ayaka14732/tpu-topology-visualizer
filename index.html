@@ -8,10 +8,47 @@
     />
     <meta name="theme-color" content="#202124" />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
-    <title>TPU Topology Visualizer</title>
+    <style>
+      html {
+        background: #202124;
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+      }
+      .static-introduction {
+        box-sizing: border-box;
+        max-width: 720px;
+        max-height: 100dvh;
+        overflow: auto;
+        margin: auto;
+        padding: 32px 24px;
+        color: #d1d5db;
+        font:
+          16px/1.6 system-ui,
+          sans-serif;
+      }
+      .static-introduction h1 {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .static-introduction h2 {
+        font-size: 18px;
+        margin: 16px 0;
+      }
+      .static-introduction p {
+        margin: 12px 0;
+      }
+      .static-introduction a {
+        color: #a5b4fc;
+      }
+    </style>
+    <!--seo-head-->
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <noscript><!--seo-content--></noscript>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

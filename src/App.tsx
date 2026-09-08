@@ -1,3 +1,4 @@
+import { About } from "./About";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
@@ -148,9 +149,10 @@ export default function App() {
   };
   if (gpu === "missing")
     return (
-      <main className="fixed inset-0 z-50 flex items-center justify-center bg-[#111] p-6 text-white">
-        <div className="max-w-md space-y-6 text-center">
+      <main className="fixed inset-0 z-50 flex overflow-y-auto bg-[#111] p-6 text-white">
+        <div className="m-auto w-full max-w-md space-y-6 text-center">
           <LanguagePicker />
+          <About />
           <div className="mb-4 flex justify-center">
             <TriangleAlert size={64} className="text-red-500" />
           </div>
@@ -446,6 +448,7 @@ export default function App() {
                 </div>
               </>
             )}
+            <About />
           </div>
         </aside>
       </div>

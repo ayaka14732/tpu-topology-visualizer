@@ -467,3 +467,28 @@ input:focus-visible {
   outline: 2px solid #818cf8;
   outline-offset: 2px;
 }
+
+.about-tool {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #374151;
+  color: #9ca3af;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.about-tool summary {
+  cursor: pointer;
+}
+.about-tool h2 {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 12px 0 8px;
+}
+.about-tool p {
+  margin: 8px 0;
+}
+.about-tool a {
+  color: #a5b4fc;
+  text-decoration: underline;
+}
